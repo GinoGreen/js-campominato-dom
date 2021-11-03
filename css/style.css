@@ -62,6 +62,25 @@ main {
    background-color: #D54B3F;
    color: #fff;
 }
+#textAttempts {
+   margin-top: 25px;
+   font-size: 20px;
+   font-weight: bold;
+   text-align: center;
+
+   animation-name: between;
+   animation-duration: .8s;
+}
+@keyframes between {
+
+   0% {
+      margin-top: 0px;
+   }
+   100% {
+      margin-top: 25px;
+   }
+
+}
 
 footer {
    height: 40px;

@@ -1,5 +1,11 @@
 //variabile booleana globale per stoppare il gioco
 let lost = false;
+//inizializzo la variabile tentativi uguale a 0
+let attempts = 0
+//creo una variabile stringa vuota
+let textLost = '';
+// intercetto l'elemento che conterrá il testo
+const textContainer = document.querySelector('.text-container');
 //seleziono il mio container della griglia
 const myContainer = document.querySelector('.myContainer');
 //memorizzo il tag select
@@ -19,6 +25,15 @@ let bombs = [];
 const playButton = document.querySelector('header .play button.btn_custom');
 
 playButton.addEventListener('click', function () {
+
+   //inizializzo ancora una volta lost = false nel caso in cui il giocatore voglia ripetere il gioco una volta perso;
+   lost = false;
+
+   //inizializzo ancora una volta attempts uguale a 0 nel caso in cui il giocatore voglia ripetere il gioco una volta perso;
+   attempts = 0;
+
+   //inizializzo ancora una volta  svuoto il tag p che cont
+   textContainer.innerHTML = ``;
 
    //svoto il myContainer prima di generare la griglia
    myContainer.innerHTML = '';
@@ -51,11 +66,8 @@ function initGrid(numberSquare) {
       //inserisco il numbero indice+1 dentro lo square
       square.innerHTML = (i+1);
       
-      // verifico se l'utente ha perso
-      
       //aggiungo un evento click a tutti gli square
       square.addEventListener('click', handleClickSquare);
-
 
    }
 }
@@ -135,38 +147,62 @@ function getRandomNumber(min, max) {
  */
 function handleClickSquare(event) {
 
-   while (lost === false) {
+   if (lost === false) {
 
       console.log('numero contenuto nello square', parseInt(event.target.innerText));
       
       // console.log(this, 'clicked'); 
       if (bombs.includes(parseInt(event.target.innerText))) {
          
+         //utente ha perso, quindi lost é vero
          lost = true;
+         
+         // ora visualizzo all'utente tutte le bombe
+         showAllBombs();
+
+         // textLost = `<p id="textAttempts" class="justify-self-end">
+         // Peccato, hai perso, hai azzeccato ${attempts} tentativi. Gioca ancora...
+         // </p>`;
+         
+         // stampo il testo di perdita
+         textContainer.innerHTML = `
+         <p id="textAttempts" class="justify-self-end">
+            Peccato, hai perso, hai azzeccato ${attempts} tentativi. Gioca ancora...
+         </p>`;
+
          console.log('hai perso');
-         return this.classList.add('bomb', 'clicked');
+         this.classList.add('bomb', 'clicked');
 
       } else {
+
+         // incremento il conteggio dei tetativi svolti con successo
+         attempts++;
+
          console.log('continua');
-         return this.classList.add('clicked');
+         this.classList.add('clicked');
       }
+      
    }
 
-   console.log('gioco finito');
-   return getViewAllBombs(this);
 }
 
 /**
  * funzione che aggiunge la classe bomb a tutti gli square
  * @param {HTMLDivElement} square 
  */
-function getViewAllBombs(square) {
+function showAllBombs() {
    
-   for (let i = 0; i < 100; i++) {
-      
-      if (this) {
+   const allSquare = document.querySelectorAll('.square');
+
+   // verifico quadrato per quadrato
+   for (let i = 0; i < allSquare.length; i++) {
+
+      if (bombs.includes(parseInt(allSquare[i].innerText))) {
          
+         allSquare[i].classList.add('bomb', 'clicked');
+
       }
-      
+      // console.log('square', allSquare[i].innerText);
    }
+
 }
