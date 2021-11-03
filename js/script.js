@@ -1,3 +1,5 @@
+//variabile booleana globale per stoppare il gioco
+let lost = false;
 //seleziono il mio container della griglia
 const myContainer = document.querySelector('.myContainer');
 //memorizzo il tag select
@@ -49,8 +51,11 @@ function initGrid(numberSquare) {
       //inserisco il numbero indice+1 dentro lo square
       square.innerHTML = (i+1);
       
+      // verifico se l'utente ha perso
+      
       //aggiungo un evento click a tutti gli square
       square.addEventListener('click', handleClickSquare);
+
 
    }
 }
@@ -125,21 +130,43 @@ function getRandomNumber(min, max) {
 }
 
 /**
- * funzione che verifica se il numero contenuto all'interno dello square é incluso nell'array bombs
+ * funzione che verifica prima se il giocatore ha perso. poi se il numero contenuto all'interno dello square é incluso nell'array bombs. Aggiunge la classe clicked allo square. se contenuto, aggiunge ANCHE la classe bomb.
  * @param {Event} event 
  */
 function handleClickSquare(event) {
-   
-   console.log('numero contenuto nello square', parseInt(event.target.innerText));
-   // console.log(this, 'clicked');
-   for (let i = 0; i < BOMBS_NUMBER; i++) {
+
+   while (lost === false) {
+
+      console.log('numero contenuto nello square', parseInt(event.target.innerText));
       
-      if (parseInt(event.target.innerText) === bombs[i]) {
+      // console.log(this, 'clicked'); 
+      if (bombs.includes(parseInt(event.target.innerText))) {
          
-         // return console.log('hai perso');
+         lost = true;
+         console.log('hai perso');
+         return this.classList.add('bomb', 'clicked');
+
+      } else {
+         console.log('continua');
+         return this.classList.add('clicked');
+      }
+   }
+
+   console.log('gioco finito');
+   return getViewAllBombs(this);
+}
+
+/**
+ * funzione che aggiunge la classe bomb a tutti gli square
+ * @param {HTMLDivElement} square 
+ */
+function getViewAllBombs(square) {
+   
+   for (let i = 0; i < 100; i++) {
+      
+      if (this) {
+         
       }
       
    }
-
-   // return console.log('continua');
 }
