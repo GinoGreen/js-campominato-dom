@@ -34,7 +34,7 @@ main {
    line-height: 500px;
 }
 .square {
-   border: 2px solid #000;
+   border: 1px solid #000;
    float: left;
    display: flex;
    align-items: center;
@@ -53,6 +53,14 @@ main {
 .square.crazy {
    width: calc(100% / 7);
    height: calc(100% / 7);
+}
+.square.clicked {
+   background-color: lightskyblue;
+   color: #fff;
+}
+.square.clicked.bomb {
+   background-color: #D54B3F;
+   color: #fff;
 }
 
 footer {

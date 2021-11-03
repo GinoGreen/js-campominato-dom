@@ -7,6 +7,11 @@ const selectDifficult = document.getElementById('selectDifficult');
 myContainer.innerHTML = `
    <h2 class="text-center">Seleziona il livello di difficoltá e genera la griglia</h2>
 `;
+
+// inizializzo la costante del numero di bombe presenti nella griglia
+const BOMBS_NUMBER = 16;
+
+
 //genero la griglia una volta cliccato il bottone PLAY
 const playButton = document.querySelector('header .play button.btn_custom');
 
@@ -19,6 +24,11 @@ playButton.addEventListener('click', function () {
    let valueDifficult = selectDifficult.value;
    console.log('difficoltá: ', valueDifficult);
 
+   // inizializzo un array di bombe che conterrá 'BOMBS_NUMBER' numeri
+   // riempio l'array bombs
+   const bombs = getBombNumbers(BOMBS_NUMBER);
+   console.log(bombs);
+   
    //per generare la griglia ho bisogno di passare alla funzione un argomento che indichi la dimensione della stessa(griglia), dipendentemente dalla difficoltá selezionata
    initGrid(getNumberByValue(valueDifficult));
    console.log('Quantitá di square in griglia: ', getNumberByValue(valueDifficult));
@@ -80,3 +90,28 @@ function getNumberByValue(difficult) {
 
    return 49;
 }
+
+// funzione che genera una array di N numeri
+function getBombNumbers(n) {
+
+   const array = [];
+
+   while (array.length < n) {
+      
+      const bombNumber = getRandomNumber(1, getNumberByValue());
+
+      if (!array.includes(bombNumber)) {
+         array.push(bombNumber);
+         console.log('numero bomba inserito', bombNumber);
+      }
+
+   }
+   
+   return array;
+ }
+
+function getRandomNumber(min, max) {
+    
+   return Math.floor(Math.random() * (max - min + 1) + min);
+}
+// funzione che genera numeri casuali
