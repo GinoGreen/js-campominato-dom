@@ -1,0 +1,73 @@
+header {
+   height: 80px;
+   display: flex;
+   align-items: center;
+}
+.logo {
+   cursor: pointer;
+}
+.logo img {
+   width: 50px;
+   vertical-align: middle;
+}
+.logo span {
+   padding: 0 20px;
+   font-size: 30px;
+   font-weight: bold;
+   vertical-align: middle;
+}
+
+
+main {
+   height: calc(100vh - 120px);
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   background-color: #7EFED4;
+}
+.myContainer {
+   height: 500px;
+   width: 500px;
+}
+.myContainer h2 {
+   font-size: 22px;
+   line-height: 500px;
+}
+.square {
+   border: 2px solid #000;
+   float: left;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   font-weight: bold;
+   cursor: pointer;
+}
+.square.easy {
+   width: calc(100% / 10);
+   height: calc(100% / 10);
+}
+.square.hard {
+   width: calc(100% / 9);
+   height: calc(100% / 9);
+}
+.square.crazy {
+   width: calc(100% / 7);
+   height: calc(100% / 7);
+}
+
+footer {
+   height: 40px;
+}
+
+.btn_custom {
+   height: 28px;
+   margin: 0 10px;
+   padding: 0 24px;
+   border-radius: 10px;
+   border: none;
+}
+.clearfix::after {
+  content: "";
+  display: table;
+  clear: both;
+}
