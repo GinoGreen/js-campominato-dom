@@ -1,4 +1,5 @@
 //variabile booleana globale per stoppare il gioco
+let win = false;
 let lost = false;
 //inizializzo la variabile tentativi uguale a 0
 let attempts = 0
@@ -33,7 +34,7 @@ playButton.addEventListener('click', function () {
    attempts = 0;
 
    //inizializzo ancora una volta  svuoto il tag p che cont
-   textContainer.innerHTML = ``;
+   textContainer.innerHTML = '';
 
    //svoto il myContainer prima di generare la griglia
    myContainer.innerHTML = '';
@@ -98,7 +99,11 @@ function createSquare(numberSquare) {
    return square;
 }
 
-// funzione che restituisce un numero intero che dipende dal value di valueDifficult
+/**
+ *  funzione che restituisce un numero intero che dipende dal value di valueDifficult
+ * @param {String} difficult 
+ * @returns 
+ */
 function getNumberByValue(difficult) {
    
    if (difficult === 'easy') {
@@ -146,13 +151,15 @@ function getRandomNumber(min, max) {
  * @param {Event} event 
  */
 function handleClickSquare(event) {
-
-   if (lost === false) {
+   //se non ha vito && non ha perso, proseguo con i controlli e gli incrementi
+   if (lost === false && win === false) {
 
       console.log('numero contenuto nello square', parseInt(event.target.innerText));
       
+      const squareNumb = event.target.innerText;
+      const squareClassList = this.classList;
       // console.log(this, 'clicked'); 
-      if (bombs.includes(parseInt(event.target.innerText))) {
+      if (bombs.includes(parseInt(squareNumb))) { //Se ha perso.......
          
          //utente ha perso, quindi lost é vero
          lost = true;
@@ -160,10 +167,6 @@ function handleClickSquare(event) {
          // ora visualizzo all'utente tutte le bombe
          showAllBombs();
 
-         // textLost = `<p id="textAttempts" class="justify-self-end">
-         // Peccato, hai perso, hai azzeccato ${attempts} tentativi. Gioca ancora...
-         // </p>`;
-         
          // stampo il testo di perdita
          textContainer.innerHTML = `
          <p id="textAttempts" class="justify-self-end">
@@ -173,17 +176,38 @@ function handleClickSquare(event) {
          console.log('hai perso');
          this.classList.add('bomb', 'clicked');
 
+      } else if (squareClassList.contains('clicked')) {
+
+         // console.log(this.classList.contains('clicked'));
+         alert('Non puoi cliccare lo stesso punto piú di una volta');
       } else {
 
          // incremento il conteggio dei tetativi svolti con successo
          attempts++;
-
+         
+         // controllo se l'utente ha vinto
+         win = getWin(selectDifficult.value);
+         
          console.log('continua');
          this.classList.add('clicked');
       }
       
    }
 
+   //creo una booleana (globale) che mi valuta se l'utente ha vinto o meno
+   // lutente ha vinto se la quantitá dei tentativi é uguale a quantitaTotaleSquare - BOMBS_NUMBER. 
+
+   // se ha vinto....
+   if (win === true) {
+      // ora visualizzo all'utente tutte le bombe
+      showAllBombs();
+      
+      // stampo il testo di vittoria
+      textContainer.innerHTML = `
+      <p id="textAttempts" class="justify-self-end">
+         Congratulazioni, hai vinto e hai azzeccato ${attempts} tentativi. Gioca ancora...
+      </p>`;
+   }
 }
 
 /**
@@ -205,4 +229,23 @@ function showAllBombs() {
       // console.log('square', allSquare[i].innerText);
    }
 
+}
+
+/**
+ * questa funzione restituisce true se i tentativi sono uguali al numeroTotSquare - BOMBS_NUMBER
+ * @param {Boolean} bool 
+ * @param {String}value 
+ * @returns 
+ */
+function getWin(bool, value) {
+
+   if (attempts === (getNumberByValue(value) - BOMBS_NUMBER)) {
+      
+      bool = true;
+   } else {
+      
+      bool = false;
+   }
+
+   return bool;
 }
