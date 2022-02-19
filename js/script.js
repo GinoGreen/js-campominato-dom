@@ -14,7 +14,7 @@ const selectDifficult = document.getElementById('selectDifficult');
 
 //all'interno di myContainer scrivo un istruzione per il giocatore. questa frase viene visualizzata solo al caricamento della pagina
 myContainer.innerHTML = `
-   <h2 class="text-center">Seleziona il livello di difficoltá e genera la griglia</h2>
+   <h2 class="text-center">Clicca Play!</h2>
 `;
 
 // inizializzo la costante del numero di bombe presenti nella griglia

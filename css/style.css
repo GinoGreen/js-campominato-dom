@@ -19,6 +19,7 @@ header {
 
 
 main {
+   width: 100%;
    height: calc(100vh - 120px);
    display: flex;
    justify-content: center;
@@ -26,12 +27,12 @@ main {
    background-color: #7EFED4;
 }
 .myContainer {
-   height: 500px;
-   width: 500px;
+   padding: 30px;
+   height: 100vw;
+   width: 100vw;
 }
 .myContainer h2 {
    font-size: 22px;
-   line-height: 500px;
 }
 .square {
    border: 1px solid #000;
@@ -63,7 +64,7 @@ main {
    color: #fff;
 }
 #textAttempts {
-   margin-top: 25px;
+   margin: 0;
    font-size: 20px;
    font-weight: bold;
    text-align: center;
@@ -74,10 +75,10 @@ main {
 @keyframes between {
 
    0% {
-      margin-top: 0px;
+      font-size: 0;
    }
    100% {
-      margin-top: 25px;
+      font-size: 20px;
    }
 
 }
@@ -97,4 +98,19 @@ footer {
   content: "";
   display: table;
   clear: both;
+}
+
+@media screen and (min-width: 419px) {
+   .myContainer {
+      padding: 0;
+      width: 400px;
+      height: 400px;
+   }
+}
+@media screen and (min-width: 768px) {
+   .myContainer {
+      padding: 0;
+      width: 500px;
+      height: 500px;
+   }
 }
